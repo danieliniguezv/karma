@@ -13,6 +13,9 @@ node_modules/
 # Docs
 docs/
 
+# Modules
+node_modules/
+
 # Dotenv file
 .env
 
