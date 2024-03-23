@@ -1,1 +1,1 @@
-console.log("123456789");
+(()=>{"use strict";function t(t){const e=document.createElement("h3");return e.textContent=t,e}const e=t("Artist");document.getElementById("artistName").appendChild(e);const n=t("Song Name");document.getElementById("songName").appendChild(n);const d=t("Duration");document.getElementById("duration").appendChild(d)})();
