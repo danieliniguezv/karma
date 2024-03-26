@@ -1,10 +1,24 @@
-import { SongInfo } from './components/header.js';
+import { LoginWindowText } from './components/login.js';
+import { Connect } from './services/walletInteractions.js';
 
-const artistName = SongInfo('Artist');
-document.getElementById('artistName').appendChild(artistName);
+const welcomeText = LoginWindowText('Welcome to Karma!');
+document.getElementById('welcome-text').appendChild(welcomeText);
 
-const songName = SongInfo('Song Name');
-document.getElementById('songName').appendChild(songName);
+const signIn = LoginWindowText('Sign in');
+document.getElementById('sign-in').appendChild(signIn);
 
-const duration = SongInfo('Duration');
-document.getElementById('duration').appendChild(duration);
+const connectButton = document.getElementById('metamask-button');
+connectButton.addEventListener('click', async () => {
+	try {
+		const userAddress = await Connect();
+		console.log(userAddress);
+
+		if (userAddress) {
+			window.location.href = '../public/dashboard.html';
+		} else {
+			null;
+		}
+	} catch (error) {
+		console.log('Error: ' + error.message);
+	}
+});
