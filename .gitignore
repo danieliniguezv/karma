@@ -16,6 +16,9 @@ docs/
 # Modules
 node_modules/
 
+# MacOs files
+.DS_Store
+
 # Dotenv file
 .env
 
