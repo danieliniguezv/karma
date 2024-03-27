@@ -19,6 +19,9 @@ node_modules/
 # MacOs files
 .DS_Store
 
+# Files
+main.js.LICENSE.txt
+
 # Dotenv file
 .env
 
