@@ -16,3 +16,15 @@ export async function Connect() {
 		return signer.address;
 	}
 }
+
+export function AccountChanged() {
+	ethereum.on('accountsChanged', (accounts) => {
+		if (accounts.length === 0) {
+			localStorage.removeItem('userAddress');
+			window.location.reload();
+		}
+		if (signer) {
+			window.location.reload();
+		}
+	});
+}
