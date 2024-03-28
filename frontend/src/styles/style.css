@@ -4,50 +4,12 @@ body {
 	color: #dbdee3;
 }
 
-/* Fonts */
-.ibm-plex mono-thin {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.ibm-plex mono-extralight {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 200;
-  font-style: normal;
-}
-
-.ibm-plex mono-light {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.ibm-plex mono-regular {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.ibm-plex mono-medium {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.ibm-plex mono-semibold {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.ibm-plex mono-bold {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 700;
-  font-style: normal;
-}
-
 /* Login page */
+body[data-page="login"] {
+	font-family: "IBM Plex Mono", monospace;
+  font-style: normal;
+}
+
 .login-container {
 	height: 100vh;
 	display: flex;
@@ -66,9 +28,7 @@ body {
 	max-height: 450px;
 	background-color: #6f7c91;
 	font-size: clamp(21px, 2.7vw, 21px);
-  font-family: "IBM Plex Mono", monospace;
   font-weight: 450;
-  font-style: normal;
 	border-style: solid;
 	border-width: 6px;
 	border-color: #535d6c;
@@ -80,7 +40,7 @@ body {
 	font-size: clamp(16px, 2.7vw, 16px);
 }
 
-.button {
+.login-button {
 	display: flex;
 	justify-content: center;
 	min-width: 198px;
@@ -106,6 +66,12 @@ body {
 }
 
 /* Dashboard Page */
+body[data-page="dashboard"] {
+	font-family: "Raleway", sans-serif;
+	font-weight: 630;
+	font-style: normal;
+}
+
 .dashboard-container {
 	display: flex;
 	flex-direction: column;
@@ -113,4 +79,22 @@ body {
 
 .user-info {
 	align-self: flex-end;
+}
+
+.dashboard-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 144px;
+	max-width: 144px;
+	min-height: 42px;
+	max-height: 42px;
+	background-color: #b7bec8;
+	border-style: solid;
+	border-color: #535d6c;
+	cursor: pointer;
+}
+
+#upload-button {
+	color: #535d6c;
 }
