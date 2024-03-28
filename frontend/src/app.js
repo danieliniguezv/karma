@@ -1,14 +1,11 @@
 import { LoginWindowText } from './components/login.js';
-import { Connect, AccountChanged } from './services/walletInteractions.js';
+import { Connect } from './services/walletInteractions.js';
 import { TextElement } from './components/dashboard.js';
 
-let userAddress;
 const currentPage = document.body.getAttribute('data-page');
-
-AccountChanged();
+const userAddress = localStorage.getItem('userAddress');
 
 document.addEventListener('DOMContentLoaded', () => {
-	userAddress = localStorage.getItem('userAddress');
 	if (userAddress) {
 		Connect();
 	}
@@ -36,8 +33,12 @@ if (currentPage === 'login') {
 			console.log('Error: ' + error.message);
 		}
 	});
-} else if (currentPage === 'dashboard') {
-	const address = localStorage.getItem('userAddress');
-	userAddress = TextElement(address);
-	document.getElementById('user-account').appendChild(userAddress);
+}
+
+/* Dashboard */
+if (currentPage === 'dashboard') {
+	const address = TextElement(userAddress);
+	document.getElementById('user-account').appendChild(address);
+	const uploadButtonText = TextElement('Upload');
+	document.getElementById('upload-button').appendChild(uploadButtonText);
 }
