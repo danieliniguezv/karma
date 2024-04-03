@@ -6,8 +6,7 @@ body {
 
 /* Login page */
 body[data-page="login"] {
-	font-family: "IBM Plex Mono", monospace;
-  font-style: normal;
+	font-family: "Changa", sans-serif;
 }
 
 .login-container {
@@ -40,7 +39,11 @@ body[data-page="login"] {
 }
 
 .username input::placeholder {
-	font-family: "IBM Plex Mono", monospace;
+	font-family: "Changa", sans-serif;
+}
+
+.username input[type="text"] {
+	font-family: "Changa", sans-serif;
 }
 
 .user-selector {
