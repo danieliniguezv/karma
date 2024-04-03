@@ -1,7 +1,7 @@
 body {
 	margin: 0;
-	background-color: #2c5aa0;
-	color: #dbdee3;
+	background-color: #0f2c50;
+	color: #0f2c50;
 }
 
 /* Login page */
@@ -24,18 +24,65 @@ body[data-page="login"] {
 	justify-content: space-around;
 	min-width: 288px;
 	max-width: 333px;
-	min-height: 450px;
-	max-height: 450px;
-	background-color: #6f7c91;
+	min-height: 540px;
+	max-height: 540px;
+	background-color: #fdffff;
 	font-size: clamp(21px, 2.7vw, 21px);
   font-weight: 450;
-	border-style: solid;
-	border-width: 6px;
-	border-color: #535d6c;
+}
+
+.username input {
+	appearance: none;
+	-webkit-appearance: none;
+	border: 3px solid #0f2c50;
+	width: 180px;
+	height: 25px;
+}
+
+.username input::placeholder {
+	font-family: "IBM Plex Mono", monospace;
+}
+
+.user-selector {
+	display: flex;
+	justify-content: center;
+}
+
+.user-selector input {
+	cursor: pointer;
+}
+
+.user-selector input[type="radio"] {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: #fdffff;
+	border: 3px solid #0f2c50;
+}
+
+.user-selector input[type="radio"]:checked {
+	background-color: #0f2c50;
+}
+
+.user-selector label {
+	font-size: clamp(15px, 2.7vw, 15px);
+}
+.artist-selector {
+	min-width: 150px;
+	max-width: 150px;
+	text-align: center;
+}
+
+.listener-selector {
+	min-width: 150px;
+	max-width: 150px;
+	text-align: center;
 }
 
 #sign-in {
-	height: 10px;
+	height: 36px;
   font-weight: 540;
 	font-size: clamp(16px, 2.7vw, 16px);
 }
@@ -47,9 +94,9 @@ body[data-page="login"] {
 	max-width: 198px;
 	min-height: 42px;
 	max-height: 42px;
-	background-color: #b7bec8;
+	background-color: #fdffff;
 	border-style: solid;
-	border-color: #535d6c;
+	border-color: #0f2c50;
 	cursor: pointer;
 }
 
@@ -59,8 +106,8 @@ body[data-page="login"] {
 }
 
 #metamask-logo {
-	min-width: 153px;
-	max-width: 153px;
+	min-width: 126px;
+	max-width: 126px;
 	min-height: 42px; 
 	max-height: 42px;
 }
