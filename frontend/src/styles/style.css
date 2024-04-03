@@ -115,6 +115,161 @@ body[data-page="login"] {
 	max-height: 42px;
 }
 
+/* Player Page */
+body[data-page="player"] {
+	font-family: "Changa", sans-serif;
+}
+
+.logo {
+	position: absolute;
+	padding: 9px;
+}
+
+.logo img {
+	width: 36px;
+	height: 36px;
+}
+
+.menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+
+.menu li {
+	display: inline-block;
+}
+
+.menu li a {
+	display: block;
+	padding: 8px 16px;
+	text-decoration: none;
+	color: #fdffff;
+}
+
+main {
+	margin-top: 144px;
+}
+
+#player {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+#album-art {
+	min-width: 200px;
+	max-width: 200px;
+	height: 200px;
+	border: 1px solid #fdffff;
+	border-radius: 50%;
+	margin-bottom: 10px;
+}
+
+#song-info {
+	text-align: center;
+}
+
+#playlist {
+	text-align: center;
+	cursor: pointer;
+}
+
+#playlist li {
+	list-style-type: none;
+	margin-bottom: 10px;
+}
+
+#playlist li:hover {
+	color: #0f2c50;
+}
+
+#audio-player {
+	display: none;
+}
+
+#progress-bar {
+	appearance: none;
+	-webkit-appearance: none;
+	border-radius: 9px;
+	background: transparent;
+	background-color: #fdffff;
+	width: 50%;
+	accent-color: #0f2c50;
+	cursor: pointer;
+}
+
+#progress-bar::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#progress-bar::-moz-range-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#volume-slider {
+	appearance: none;
+	-webkit-appearance: none;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	margin-top: 18px;
+	background-color: #fdffff;
+	border-radius: 9px;
+}
+
+#volume-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.control-buttons {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 10px;
+}
+
+.control-button {
+	border: none;
+	border-radius: 50%;
+	background-color: transparent;
+	width: 63px;
+	height: 63px;
+	cursor: pointer;
+}
+
+.control-button i {
+	font-size: 27px;
+	color: #fdffff;
+}
+
 /* Dashboard Page */
 body[data-page="dashboard"] {
 	font-family: "Raleway", sans-serif;
