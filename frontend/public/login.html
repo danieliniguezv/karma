@@ -13,8 +13,23 @@
 		<body data-page="login">
 			<div class="login-container">
 				<div class="login">
-					<img src="../src/images/logo-gray.svg" id="logo-login">
+					<img src="../src/images/new-logo-website-1.svg" id="logo-login">
 					<div class="welcome" id="welcome-text"></div>
+					<div class="username">
+						<form>
+							<input type="text" id="username-form" name="username" placeholder="Username">
+						</form>
+					</div>
+					<div class="user-selector">
+						<div class="artist-selector">
+							<input type="radio" id="option1" name="user-type" checked>
+							<label for="option1" id="artist-option"></label>
+						</div>
+						<div class="listener-selector">
+							<input type="radio" id="option2" name="user-type">
+							<label for="option2" id="listener-option"></label>
+						</div>
+					</div>
 					<div class="welcome" id="sign-in"></div>
 					<div class="login-button" id="metamask-button">
 						<img src="../src/images/metamask-button.svg" id="metamask-logo">
