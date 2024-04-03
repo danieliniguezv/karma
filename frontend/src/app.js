@@ -13,11 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* Login */
 if (currentPage === 'login') {
-	const welcomeText = LoginWindowText('Welcome to Karma!');
+	const welcomeText = LoginWindowText('Welcome to Karma');
 	document.getElementById('welcome-text').appendChild(welcomeText);
 
-	const signIn = LoginWindowText('Sign in');
+	const signIn = LoginWindowText('Login');
 	document.getElementById('sign-in').appendChild(signIn);
+
+	const artistOption = LoginWindowText('Artist');
+	document.getElementById('artist-option').appendChild(artistOption);
+
+	const listenerOption = LoginWindowText('Listener');
+	document.getElementById('listener-option').appendChild(listenerOption);
 
 	const connectButton = document.getElementById('metamask-button');
 	connectButton.addEventListener('click', async () => {
