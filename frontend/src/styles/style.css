@@ -270,6 +270,22 @@ main {
 	color: #fdffff;
 }
 
+/* Browse Page */
+body[data-page="browse"] {
+	font-family: "Changa", sans-serif;
+	color: #fdffff;
+}
+
+.song-info {
+	display: flex;
+	list-style-type: none;
+	justify-content: space-around;
+}
+
+.song-info li {
+	display: inline-block;
+}
+
 /* Dashboard Page */
 body[data-page="dashboard"] {
 	font-family: "Raleway", sans-serif;
