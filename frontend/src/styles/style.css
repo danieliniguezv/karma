@@ -288,34 +288,62 @@ body[data-page="browse"] {
 
 /* Dashboard Page */
 body[data-page="dashboard"] {
-	font-family: "Raleway", sans-serif;
-	font-weight: 630;
-	font-style: normal;
+	font-family: "Changa", sans-serif;
+	color: #fdffff;
 }
 
-.dashboard-container {
+/* Artist Page */
+body[data-page="artist"] {
+	font-family: "Changa", sans, serif;
+	color: #fdffff;
+}
+
+.upload {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50%;
+	/*border: 3px solid pink;*/
 }
 
-.user-info {
-	align-self: flex-end;
+.upload input[type="file"] {
+	display: none;
 }
 
-.dashboard-button {
+.input-fields {
+	width: 50%;
+	height: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
+
+.input-fields label {
+	display: block;
+}
+
+.upload-buttons {
+	width: 50%;
+	height: 18%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-width: 144px;
-	max-width: 144px;
-	min-height: 42px;
-	max-height: 42px;
-	background-color: #b7bec8;
-	border-style: solid;
-	border-color: #535d6c;
-	cursor: pointer;
+	/*border: 3px solid pink;*/
 }
 
-#upload-button {
-	color: #535d6c;
+.select-song-button {
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	/*border: 3px solid pink;*/
+}
+
+.select-image-button {
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	/*border: 3px solid pink;*/
 }
