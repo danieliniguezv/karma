@@ -4,19 +4,35 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="../src/styles/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 		<link rel="shortcut icon" href="../src/images/favicon.ico" type="image/x-icon">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap" rel="stylesheet">
 		<script type="module" src="../src/main.js"></script>
 		<title>Karma</title>
 	</head>
 	<body data-page="dashboard">
-		<div class="dashboard-container" id="app">
-			<div class="user-info" id="user-account"></div>
-			<div class="dashboard-button">
-				<div id="upload-button"></div>
-			</div>
+		<div class="logo">
+			<img src="../src/images/new-logo-website-1.svg" id="header-logo">
+		</div>
+		<nav>
+			<ul class="menu">
+				<li><a href="#">Browse</a></li>
+				<li><a href="#">Artist</a></li>
+			</ul>
+		</nav>
+		<div class="song-info-container">
+			<ul class="song-info">
+				<li id="art"></li>
+				<li id="artist-name">Artist</li>
+				<li id="song-name">Song Name</li>
+				<li id="duration">Duration</li>
+				<li id="play-button"></li>
+			</ul>
+		</div>
+		<div id="playlist">
+			<!-- List of songs will be dynamically generated here -->
 		</div>
 	</body>
 </html>
