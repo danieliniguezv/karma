@@ -1,6 +1,7 @@
 import { LoginWindowText } from './components/login.js';
 import { Connect } from './services/walletInteractions.js';
 import { TextElement } from './components/dashboard.js';
+import UploadComponent from './components/upload.js';
 
 const currentPage = document.body.getAttribute('data-page');
 const userAddress = localStorage.getItem('userAddress');
@@ -39,6 +40,15 @@ if (currentPage === 'login') {
 			console.log('Error: ' + error.message);
 		}
 	});
+}
+
+/* Upload Component for upload and artist page */
+if (currentPage === 'upload') {
+	const uploadComponent = new UploadComponent('upload');
+	document.getElementById('upload-component').appendChild(uploadComponent.render());
+} else if (currentPage === 'artist') {
+	const uploadComponent = new UploadComponent();
+	document.getElementById('upload-component').appendChild(uploadComponent.render());
 }
 
 /* Dashboard */
