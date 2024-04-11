@@ -4,6 +4,7 @@ export default class UploadComponent {
 		this.container.classList.add('upload');
 		this.container.setAttribute('data-page', page);
 		this.container.innerHTML = `
+		<div class="login" data-page="${page}"></div>
 			<div class="input-fields" data-page="${page}">
 				<div id="artist-input">
 					<label for="artist-name">Artist:</label>
