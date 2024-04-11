@@ -27,7 +27,7 @@ body[data-page="login"] {
 	max-height: 540px;
 	background-color: #fdffff;
 	font-size: clamp(21px, 2.7vw, 21px);
-  font-weight: 450;
+	font-weight: 450;
 }
 
 .username input {
@@ -118,7 +118,7 @@ body[data-page="login"] {
 /* Upload Page */
 body[data-page="upload"] {
 	font-family: "Changa", sans-serif;
-	color: #fdffff;
+	color: #0f2c50;
 }
 
 .upload[data-page="upload"] {
@@ -129,8 +129,9 @@ body[data-page="upload"] {
 	justify-content: space-evenly;
 }
 
-.body-upload .input-fields {
-	justify-content: space-evenly;
+.login[data-page="upload"] {
+	z-index: -1;
+	position: absolute;
 }
 
 /* Player Page */
@@ -316,12 +317,20 @@ body[data-page="artist"] {
 	color: #fdffff;
 }
 
+.login[data-page="artist"] {
+	z-index: -1;
+	position: absolute;
+	min-height: 300px;
+	max-height: 250px;
+}
+
 .upload {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 50vh;
+	color: #0f2c50;
 	/*border: 3px solid pink;*/
 }
 
