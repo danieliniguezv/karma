@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* Login */
 if (currentPage === 'login') {
+	const artistRadioButton = document.getElementById('artist-radio-button');
+
 	const welcomeText = LoginWindowText('Welcome to Karma');
 	document.getElementById('welcome-text').appendChild(welcomeText);
 
@@ -29,25 +31,23 @@ if (currentPage === 'login') {
 	const connectButton = document.getElementById('metamask-button');
 	connectButton.addEventListener('click', async () => {
 		try {
-			const address = await Connect();
-			localStorage.setItem('userAddress', address);
-			if (address) {
-				window.location.href = '../public/dashboard.html';
-			} else {
-				null;
+			const username = document.getElementById('username-form').value;
+			if (!username) {
+				throw new Error('Please choose and input a username!');
 			}
+			const address = await Connect();
+
+			localStorage.setItem('userAddress', address);
 		} catch (error) {
+			window.alert('Error: ' + error.message);
 			console.log('Error: ' + error.message);
 		}
 	});
 }
 
 /* Upload Component for upload and artist page */
-if (currentPage === 'upload') {
-	const uploadComponent = new UploadComponent('upload');
-	document.getElementById('upload-component').appendChild(uploadComponent.render());
-} else if (currentPage === 'artist') {
-	const uploadComponent = new UploadComponent();
+if (currentPage === 'upload' || currentPage === 'artist') {
+	const uploadComponent = new UploadComponent(currentPage);
 	document.getElementById('upload-component').appendChild(uploadComponent.render());
 }
 
