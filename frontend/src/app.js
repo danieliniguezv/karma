@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-/* Log In component for login and signup page */
+/* Log In component for Log In and Sign Up page */
 if (currentPage === 'log-in' || currentPage === 'sign-up') {
 	const logInComponent = new LogInComponent(currentPage);
 	document.getElementById('log-in-component').appendChild(logInComponent.render());
