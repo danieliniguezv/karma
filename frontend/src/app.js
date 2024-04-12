@@ -1,6 +1,7 @@
-import { LoginWindowText } from './components/login.js';
+import { LoginWindowText } from './components/text.js';
 import { Connect } from './services/walletInteractions.js';
 import { TextElement } from './components/dashboard.js';
+import LogInComponent from './components/login.js';
 import UploadComponent from './components/upload.js';
 
 const currentPage = document.body.getAttribute('data-page');
@@ -12,23 +13,31 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-/* Login */
-if (currentPage === 'login') {
-	const artistRadioButton = document.getElementById('artist-radio-button');
+/* Log In component for login and signup page */
+if (currentPage === 'log-in' || currentPage === 'sign-up') {
+	const logInComponent = new LogInComponent(currentPage);
+	document.getElementById('log-in-component').appendChild(logInComponent.render());
+}
 
-	const welcomeText = LoginWindowText('Welcome to Karma');
-	document.getElementById('welcome-text').appendChild(welcomeText);
-
-	const signIn = LoginWindowText('Login');
-	document.getElementById('sign-in').appendChild(signIn);
-
-	const artistOption = LoginWindowText('Artist');
-	document.getElementById('artist-option').appendChild(artistOption);
-
-	const listenerOption = LoginWindowText('Listener');
-	document.getElementById('listener-option').appendChild(listenerOption);
-
+/* Log In Page */
+if (currentPage === 'log-in') {
 	const connectButton = document.getElementById('metamask-button');
+
+	connectButton.addEventListener('click', async () => {
+		try {
+			const address = await Connect();
+			console.log(address);
+		} catch (error) {
+			console.log('Error: ' + error.message);
+		}
+	});
+}
+
+/* Sign Up Page */
+if (currentPage === 'sign-up') {
+	const artistRadioButton = document.getElementById('artist-radio-button');
+	const connectButton = document.getElementById('metamask-button');
+
 	connectButton.addEventListener('click', async () => {
 		try {
 			const username = document.getElementById('username-form').value;
