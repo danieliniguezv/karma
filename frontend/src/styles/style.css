@@ -4,19 +4,19 @@ body {
 	color: #0f2c50;
 }
 
-/* Login page */
-body[data-page="login"] {
+/* Signup page */
+body[data-page="sign-up"] {
 	font-family: "Changa", sans-serif;
 }
 
-.login-container {
+#log-in-component {
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.login {
+.log-in {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -30,7 +30,7 @@ body[data-page="login"] {
 	font-weight: 450;
 }
 
-.username input {
+.input-field input {
 	appearance: none;
 	-webkit-appearance: none;
 	border: 3px solid #0f2c50;
@@ -38,11 +38,11 @@ body[data-page="login"] {
 	height: 25px;
 }
 
-.username input::placeholder {
+.input-field input::placeholder {
 	font-family: "Changa", sans-serif;
 }
 
-.username input[type="text"] {
+.input-field input[type="text"] {
 	font-family: "Changa", sans-serif;
 }
 
@@ -84,13 +84,13 @@ body[data-page="login"] {
 	text-align: center;
 }
 
-#sign-in {
+#sign-up {
 	height: 36px;
-  font-weight: 540;
+	font-weight: 540;
 	font-size: clamp(16px, 2.7vw, 16px);
 }
 
-.login-button {
+.button {
 	display: flex;
 	justify-content: center;
 	min-width: 198px;
@@ -103,7 +103,7 @@ body[data-page="login"] {
 	cursor: pointer;
 }
 
-#logo-login {
+#logo-log-in {
 	width: 108px;
 	height: 108px;
 }
@@ -113,6 +113,20 @@ body[data-page="login"] {
 	max-width: 126px;
 	min-height: 42px; 
 	max-height: 42px;
+}
+
+/* Login */
+body[data-page="log-in"] {
+	font-family: "Changa", sans-serif;
+}
+
+#sign-up[data-page="log-in"] {
+	height: 18px;
+}
+
+#sign-up-no-account a {
+	color: #0f2c50;
+	font-size: clamp(18px, 2.7vw, 18px);
 }
 
 /* Upload Page */
@@ -129,9 +143,34 @@ body[data-page="upload"] {
 	justify-content: space-evenly;
 }
 
-.login[data-page="upload"] {
+.log-in[data-page="upload"] {
 	z-index: -1;
 	position: absolute;
+}
+
+#logo-log-in[data-page="upload"] {
+	width: 207px;
+	height: 207px;
+	opacity: 0.2;
+}
+
+.upload-buttons[data-page="upload"] {
+	width: 30%;
+	height: 18%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
+
+.button[data-page="upload"] {
+	min-width: 108px;
+	max-width: 108px;
+}
+
+#upload-button {
+	display: flex;
+	align-items: center;
 }
 
 /* Player Page */
@@ -317,11 +356,17 @@ body[data-page="artist"] {
 	color: #fdffff;
 }
 
-.login[data-page="artist"] {
+.log-in[data-page="artist"] {
 	z-index: -1;
 	position: absolute;
-	min-height: 300px;
-	max-height: 250px;
+	min-height: 350px;
+	max-height: 350px;
+}
+
+#logo-log-in[data-page="artist"] {
+	width: 207px;
+	height: 207px;
+	opacity: 0.2;
 }
 
 .upload {
@@ -352,25 +397,32 @@ body[data-page="artist"] {
 	display: block;
 }
 
-.upload-buttons {
-	width: 50%;
+.upload-buttons[data-page="artist"] {
+	width: 18%;
 	height: 18%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
+
+.button[data-page="artist"] {
+	min-width: 108px;
+	max-width: 108px;
+}
+
+#select-song-button {
+	width: 25%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	/*border: 3px solid pink;*/
 }
 
-.select-song-button {
+#select-image-button {
 	width: 25%;
 	display: flex;
 	justify-content: center;
-	/*border: 3px solid pink;*/
-}
-
-.select-image-button {
-	width: 25%;
-	display: flex;
-	justify-content: center;
+	align-items: center;
 	/*border: 3px solid pink;*/
 }
