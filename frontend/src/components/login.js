@@ -33,7 +33,9 @@ export default class LogInComponent {
 					<p>Sign Up</p>
 				</div>
 				<div class="button" id="metamask-button">
-					<img src="../src/images/metamask-button.svg" id="metamask-logo">
+					<form id="log-in-form" method="POST">
+						<img src="../src/images/metamask-button.svg" id="metamask-logo">
+					</form>
 				</div>
 			</div>
 			`;
