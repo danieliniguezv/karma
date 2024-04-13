@@ -27,6 +27,18 @@ if (currentPage === 'log-in') {
 		try {
 			const address = await Connect();
 			console.log(address);
+			fetch('http://localhost:3000/check-address?address=' + encodeURIComponent(address))
+				.then(response => { 
+					return response.text()
+				})
+				.then(result => {
+					console.log(result);
+					if (`${result}` === 'Address exists in the database.') {
+					window.location.href = 'player.html';
+					} else {
+					window.location.href = 'signup.html';
+					}
+				});
 		} catch (error) {
 			console.log('Error: ' + error.message);
 		}
