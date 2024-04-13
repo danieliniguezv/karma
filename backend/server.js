@@ -1,14 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 require('dotenv').config();
 
-/* Creat a MySQL connection */
+/* Create a MySQL connection */
 const connection = mysql.createConnection({
 	host: 'localhost',
-	user: process.env.USER,
+	user: 'root',
 	password: process.env.DB_PASSWORD,
-	database: process.env.DATABASE
+	database: 'karma'
 });
 
 connection.connect((err) => {
@@ -20,23 +21,57 @@ connection.connect((err) => {
 });
 
 const app = express();
+const port = 3000;
 
 app.use(bodyParser.json());
+app.use(cors());
+app.use(express.urlencoded({ extend: true }));
 
-app.post('/login', (req, res) => {
-	const query = "SELECT address FROM users";
-	connection.query(query, (error, results, fields) => {
+app.get('/login', (req, res) => {
+	const query = 'SELECT address FROM users';
+
+	connection.query(query, (error, results) => {
 		if (error) {
 			console.error('Error querying the database: ' + error);
 			res.sendStatus(500);
+			return;
 		} else {
-			const addresses = result.map(result => result.address);
-			console.log('Addresses: ' + addresses);
-			res.status(200).json({ addresses });
+			const addresses = results.map(row => row.address);
+			res.json(addresses);
 		}
 	});
 });
 
-app.listen(3000, () => {
-	console.log('Server started on port 3000');
+app.get('/check-address', (req, res) => {
+  console.log('Received URL:', req.url);
+  
+  if (req.query && req.query.address) {
+    console.log('Received Parameters:', req.query);
+
+    const address = req.query.address;
+
+    // Perform the database query
+    const query = `SELECT address FROM users WHERE address = '${address}'`;
+
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing the query');
+        res.sendStatus(500);
+        return;
+      }
+
+      // Check if the address exists in the database
+      if (results.length > 0) {
+        res.send('Address exists in the database.');
+      } else {
+        res.send('Address does not exist in the database.');
+      }
+    });
+  } else {
+    res.status(400).send('Invalid request');
+  }
+});
+
+app.listen(port, () => {
+	console.log(`Server started on port ${port}`);
 });
