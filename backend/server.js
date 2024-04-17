@@ -27,12 +27,28 @@ connection.connect((err) => {
 const app = express();
 const port = 3000;
 
+const uploadsDirectory = path.join(__dirname, '../uploads');
+const songsDirectory = path.join(__dirname, '../uploads/songs');
+const imagesDirectory = path.join(__dirname, '../uploads/images');
+
+if (!fs.existsSync(uploadsDirectory)) {
+  fs.mkdirSync(uploadsDirectory);
+}
+
+if (!fs.existsSync(songsDirectory)) {
+  fs.mkdirSync(songsDirectory);
+}
+
+if (!fs.existsSync(imagesDirectory)) {
+  fs.mkdirSync(imagesDirectory);
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.fieldname === 'songFile') {
-      cb(null, path.join(__dirname, '../uploads/songs'));
+      cb(null, songsDirectory);
     } else if (file.fieldname === 'imageFile') {
-      cb(null, path.join(__dirname, '../uploads/images'));
+      cb(null, imagesDirectory);
     } else {
       cb(new Error('Invalid fieldname'), null);
     }
