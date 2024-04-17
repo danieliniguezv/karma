@@ -72,9 +72,8 @@ if (currentPage === 'artist') {
 	const uploadComponent = new UploadComponent(currentPage);
 	document.getElementById('upload-component').appendChild(uploadComponent.render());
 }
-
 /* File uploading */
-if (currentPage === 'upload') {
+/*if (currentPage === 'upload') {
 	const uploadComponent = new UploadComponent(currentPage);
 	document.getElementById('upload-component').appendChild(uploadComponent.render());
 
@@ -119,6 +118,86 @@ if (currentPage === 'upload') {
 	uploadButton.addEventListener('click', (event) => {
 		event.preventDefault();
 		fileInput.click();
+	});
+}*/
+
+if (currentPage === 'upload') {
+	const uploadComponent = new UploadComponent(currentPage);
+	document.getElementById('upload-component').appendChild(uploadComponent.render());
+
+	const selectSongButton = document.getElementById('select-song-button');
+	const selectImageButton = document.getElementById('select-image-button');
+	const uploadButton = document.getElementById('upload-button');
+
+	const fileInput = document.createElement('input');
+	fileInput.type = 'file';
+
+	let songFile = null;
+	let imageFile = null;
+
+	selectSongButton.addEventListener('click', (event) => {
+		event.preventDefault();
+		fileInput.accept = 'audio/*';
+		fileInput.click();
+	});
+
+	selectImageButton.addEventListener('click', (event) => {
+		event.preventDefault();
+		fileInput.accept = 'image/*';
+		fileInput.click();
+	});
+
+	fileInput.addEventListener('change', (event) => {
+		event.preventDefault();
+
+		const file = fileInput.files[0];
+		if (fileInput.accept === 'audio/*') {
+			songFile = file;
+		} else if (fileInput.accept === 'image/*') {
+			imageFile = file;
+		}
+
+		fileInput.value = null;
+
+		if (songFile && imageFile) {
+			uploadButton.classList.remove('disabled');
+		}
+	});
+
+	uploadButton.addEventListener('click', async (event) => {
+		event.preventDefault();
+
+		const artist = document.getElementById('artist-name').value;
+		const song = document.getElementById('song-name').value;
+		const genre = document.getElementById('genre').value;
+
+		const formData = new FormData();
+		formData.append('songFile', songFile);
+		formData.append('imageFile', imageFile);
+		formData.append('artist', artist);
+		formData.append('songName', song);
+		formData.append('genre', genre);
+
+		try {
+			const response = await fetch('/upload', {
+				method: 'POST',
+				body: formData
+			});
+
+			if (!response.ok) {
+				throw new Error('Upload failed. Server returned: ' + response.status);
+			}
+			
+			const text = await response.text();
+			console.log('Server response: ', text);
+			console.log('Files uploaded successfully!');
+
+			songFile = null;
+			imageFile = null;
+			uploadButton.classList.add('disabled');
+		} catch (error) {
+			console.error('Error: ', error);
+		}
 	});
 }
 
