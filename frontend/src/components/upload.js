@@ -29,7 +29,7 @@ export default class UploadComponent {
 					<p>Select Image</p>
 				</div>
 			</div>
-			<div class="button" id="upload-button">
+			<div class="button disabled" id="upload-button">
 				<p>Upload</p>
 			</div>
 		`;
