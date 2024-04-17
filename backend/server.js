@@ -1,8 +1,12 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 require('dotenv').config();
+const getFingerprint = require('./scripts/acoustic-fingerprint.js');
 
 /* Create a MySQL connection */
 const connection = mysql.createConnection({
@@ -23,10 +27,34 @@ connection.connect((err) => {
 const app = express();
 const port = 3000;
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../uploads/songs'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage });
+
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
 app.use(express.urlencoded({ extend: true }));
 
+// Serve the HTML file and static assets
+app.use('/', express.static('../frontend/public'));
+app.use('/styles', express.static(path.join(__dirname, '/frontend/src/styles'), {
+  setHeaders: (res, filePath) => {
+    if (path.extname(filePath).toLowerCase() === '.css') {
+      res.setHeader('Content-Type', 'text/css');
+    }
+  },
+}));
+app.use('/src', express.static('../frontend/src/'));
+app.use('/images', express.static('../frontend/src/images'));
+
+/* Endpoint query existing users' addresses */
 app.get('/login', (req, res) => {
 	const query = 'SELECT address FROM users';
 
@@ -42,6 +70,7 @@ app.get('/login', (req, res) => {
 	});
 });
 
+/* Endpoint checks if the address logging in exists already */
 app.get('/check-address', (req, res) => {
   console.log('Received URL:', req.url);
   
@@ -50,7 +79,7 @@ app.get('/check-address', (req, res) => {
 
     const address = req.query.address;
 
-    // Perform the database query
+    // Database query
     const query = `SELECT address FROM users WHERE address = '${address}'`;
 
     connection.query(query, (err, results) => {
@@ -70,6 +99,29 @@ app.get('/check-address', (req, res) => {
   } else {
     res.status(400).send('Invalid request');
   }
+});
+
+/* Endpoint to upload the file and insert inforamtion to songs table */
+app.post('/upload', upload.single('file'), async (req, res) => {
+  const  { artist, song, genre } = req.body;
+
+  const filePath = req.file.path;
+
+  const acousticFingerprint = await getFingerprint(filePath);
+
+  const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre) VALUES (?, ?, ?, ?)`;
+
+  const values = [acousticFingerprint, artist, song, genre];
+
+  connection.query(insertQuery, values, (error, results) => {
+    if (error) {
+      console.error('Error inserting into songs table.');
+      res.sendStatus(500);
+      return;
+    }
+    console.log('Song inserted successfully');
+    res.sendStatus(200);
+  });
 });
 
 app.listen(port, () => {
