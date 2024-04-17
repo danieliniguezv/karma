@@ -10,15 +10,15 @@ export default class UploadComponent {
 			<div class="input-fields" data-page="${page}">
 				<div class="input-field">
 					<label for="artist-name">Artist:</label>
-					<input type="text" name="artist-name">
+					<input type="text" id="artist-name" name="artist-name">
 				</div>
 				<div class="input-field">
 					<label for="song-name">Song Name:</label>
-					<input type="text" name="song-name">
+					<input type="text" id="song-name" name="song-name">
 				</div>
 				<div class="input-field">
 					<label for="genre">Genre:</label>
-					<input type="text" name="genre">
+					<input type="text" id="genre" name="genre">
 				</div>
 			</div>
 			<div class=upload-buttons data-page="${page}">
