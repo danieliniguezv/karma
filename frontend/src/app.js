@@ -3,6 +3,7 @@ import { Connect } from './services/walletInteractions.js';
 import { TextElement } from './components/dashboard.js';
 import LogInComponent from './components/login.js';
 import UploadComponent from './components/upload.js';
+import { uploadFile } from './components/upload-file.js';
 
 const currentPage = document.body.getAttribute('data-page');
 const userAddress = localStorage.getItem('userAddress');
@@ -27,7 +28,7 @@ if (currentPage === 'log-in') {
 		try {
 			const address = await Connect();
 			console.log(address);
-			fetch('http://localhost:3000/check-address?address=' + encodeURIComponent(address))
+			fetch('/check-address?address=' + encodeURIComponent(address))
 				.then(response => { 
 					return response.text()
 				})
@@ -67,9 +68,58 @@ if (currentPage === 'sign-up') {
 }
 
 /* Upload Component for upload and artist page */
-if (currentPage === 'upload' || currentPage === 'artist') {
+if (currentPage === 'artist') {
 	const uploadComponent = new UploadComponent(currentPage);
 	document.getElementById('upload-component').appendChild(uploadComponent.render());
+}
+
+/* File uploading */
+if (currentPage === 'upload') {
+	const uploadComponent = new UploadComponent(currentPage);
+	document.getElementById('upload-component').appendChild(uploadComponent.render());
+
+	const uploadButton = document.getElementById('upload-button');
+	const fileInput = document.createElement('input');
+	fileInput.type = 'file';
+
+	fileInput.addEventListener('change', async (event) => {
+		event.preventDefault();
+
+		const file = fileInput.files[0];
+		const artist = document.getElementById('artist-name').value;
+		const song = document.getElementById('song-name').value;
+		const genre = document.getElementById('genre').value;
+			
+		const formData = new FormData();
+		formData.append('file', file);
+		formData.append('artist', artist);
+		formData.append('song', song);
+		formData.append('genre', genre);
+
+		try {
+				const response = await fetch('/upload', {
+					method: 'POST',
+					body: formData
+				});
+
+			if (!response.ok) {
+				throw new Error('Upload failed. Server returned ' + response.status);
+			}
+
+			const text = await response.text();
+			console.log('Server response: ', text);
+			console.log('File uploaded successfully!');
+
+			fileInput.value = null;
+		} catch (error) {
+			console.error('Error: ', error);
+		}
+	});
+
+	uploadButton.addEventListener('click', (event) => {
+		event.preventDefault();
+		fileInput.click();
+	});
 }
 
 /* Dashboard */
