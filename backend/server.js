@@ -29,7 +29,13 @@ const port = 3000;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../uploads/songs'));
+    if (file.fieldname === 'songFile') {
+      cb(null, path.join(__dirname, '../uploads/songs'));
+    } else if (file.fieldname === 'imageFile') {
+      cb(null, path.join(__dirname, '../uploads/images'));
+    } else {
+      cb(new Error('Invalid fieldname'), null);
+    }
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -102,16 +108,16 @@ app.get('/check-address', (req, res) => {
 });
 
 /* Endpoint to upload the file and insert inforamtion to songs table */
-app.post('/upload', upload.single('file'), async (req, res) => {
-  const  { artist, song, genre } = req.body;
+/*app.post('/upload', upload.single('file'), async (req, res) => {
+  const  { artist, songName, genre } = req.body;
 
   const filePath = req.file.path;
 
   const acousticFingerprint = await getFingerprint(filePath);
 
-  const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre) VALUES (?, ?, ?, ?)`;
+  const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre, song_file_path) VALUES (?, ?, ?, ?, ?)`;
 
-  const values = [acousticFingerprint, artist, song, genre];
+  const values = [acousticFingerprint, artist, songName, genre, filePath];
 
   connection.query(insertQuery, values, (error, results) => {
     if (error) {
@@ -120,8 +126,41 @@ app.post('/upload', upload.single('file'), async (req, res) => {
       return;
     }
     console.log('Song inserted successfully');
+    console.log(filePath);
     res.sendStatus(200);
   });
+});*/
+
+app.post('/upload', upload.fields([
+  {name: 'songFile', maxCount: 1},
+  {name: 'imageFile', maxCount: 1}
+]), async (req, res) => {
+  try {
+    const  { artist, songName, genre } = req.body;
+
+    const songFilePath = req.files['songFile'][0].path;
+    const imageFilePath = req.files['imageFile'][0].path;
+
+    const acousticFingerprint = await getFingerprint(songFilePath);
+
+    const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre, song_file_path, image_file_path) VALUES (?, ?, ?, ?, ?, ?)`;
+
+    const values = [acousticFingerprint, artist, songName, genre, songFilePath, imageFilePath];
+
+    connection.query(insertQuery, values, (error, results) => {
+      if (error) {
+        console.error('Error inserting into songs table.');
+        res.sendStatus(500);
+        return;
+      }
+      console.log('Song inserted successfully');
+      console.log(songFilePath);
+      console.log(imageFilePath);
+      res.sendStatus(200);
+    });
+  } catch (error) {
+    console.error('Error: ', error);
+  }
 });
 
 app.listen(port, () => {
