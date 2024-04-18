@@ -1,5 +1,4 @@
 const express = require('express');
-// const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -61,7 +60,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(bodyParser.json());
-// app.use(cors());
 app.use(express.urlencoded({ extend: true }));
 
 // Serve the HTML file and static assets
@@ -102,7 +100,7 @@ app.get('/check-address', (req, res) => {
     const address = req.query.address;
 
     // Database query
-    const query = `SELECT address FROM users WHERE address = '${address}'`;
+    const query = `SELECT user_address FROM users WHERE user_address = '${address}'`;
 
     connection.query(query, (err, results) => {
       if (err) {
@@ -172,6 +170,26 @@ app.post('/upload', upload.fields([
       console.log('Song inserted successfully');
       console.log(songFilePath);
       console.log(imageFilePath);
+      res.sendStatus(200);
+    });
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+});
+
+app.post('/sign-up', upload.none(), (req, res) => {
+  try {
+    const { address, username, userType } = req.body;
+
+    const insertQuery = `INSERT INTO users (user_address, username, user_type) VALUES (?, ?, ?)`;
+    const values = [address, username, userType];
+    connection.query(insertQuery, values, (error, results) => {
+      if (error) {
+        console.error('Error inserting into users table.');
+        res.sendStatus(500);
+        return;
+      }
+      console.log('Account created successfully!');
       res.sendStatus(200);
     });
   } catch (error) {
