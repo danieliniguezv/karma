@@ -10,7 +10,10 @@ export async function Connect() {
 		provider = ethers.getDefaultProvider();
 	} else {
 		provider = new ethers.BrowserProvider(window.ethereum);
+
 		signer = await provider.getSigner();
+		localStorage.setItem('userAddress', signer);
+
 		connected = window.ethereum.isConnected();
 
 		return signer.address;
