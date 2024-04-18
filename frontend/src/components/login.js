@@ -53,7 +53,7 @@ export default class LogInComponent {
 						<img src="../src/images/metamask-button.svg" id="metamask-logo">
 					</div>
 					<div class="sign-up" id="sign-up-no-account">
-						<p><a href="../public/signup.html">No Account? Sign Up!</a></p>
+						<p><a href="signup.html">No Account? Sign Up!</a></p>
 					</div>
 				</div>
 			`;
