@@ -3,14 +3,25 @@ import { Connect } from './services/walletInteractions.js';
 import { TextElement } from './components/dashboard.js';
 import LogInComponent from './components/login.js';
 import UploadComponent from './components/upload.js';
-import { uploadFile } from './components/upload-file.js';
 
 const currentPage = document.body.getAttribute('data-page');
-const userAddress = localStorage.getItem('userAddress');
+
+let userAddress = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+	userAddress = localStorage.getItem('userAddress');
 	if (userAddress) {
 		Connect();
+	}
+});
+
+window.ethereum.on('accountsChanged', (accounts) => {
+	if (accounts.length === 0) {
+		localStorage.removeItem('userAddress');
+		window.location.reload();
+	}
+	if (userAddress) {
+		window.location.reload();
 	}
 });
 
@@ -35,9 +46,9 @@ if (currentPage === 'log-in') {
 				.then(result => {
 					console.log(result);
 					if (`${result}` === 'Address exists in the database.') {
-					window.location.href = 'player.html';
+						window.location.href = 'player.html';
 					} else {
-					window.location.href = 'signup.html';
+						window.alert('Please sign up and create an account!');
 					}
 				});
 		} catch (error) {
@@ -49,17 +60,53 @@ if (currentPage === 'log-in') {
 /* Sign Up Page */
 if (currentPage === 'sign-up') {
 	const artistRadioButton = document.getElementById('artist-radio-button');
-	const connectButton = document.getElementById('metamask-button');
+	const signUpButton = document.getElementById('metamask-button');
 
-	connectButton.addEventListener('click', async () => {
+	let username = null;
+	let userType = null;
+
+	signUpButton.addEventListener('click', async () => {
 		try {
-			const username = document.getElementById('username-form').value;
+			username = document.getElementById('username-form').value;
 			if (!username) {
 				throw new Error('Please choose and input a username!');
 			}
 			const address = await Connect();
-
 			localStorage.setItem('userAddress', address);
+			
+			if (artistRadioButton.value == 'on') {
+				userType = 'Artist';
+			} else if (artistRadioButton.value == 'off') {
+				userType = 'Listener';
+			}
+
+			const formData = new FormData();
+			formData.append('address', address);
+			formData.append('username', username);
+			formData.append('userType', userType);
+
+			try {
+				const response = await fetch('/sign-up', {
+					method: 'POST',
+					body: formData
+				});
+
+				if (!response.ok) {
+					throw new Error('Upload failed. Server returned: ' + response.status);
+				}
+
+				const text = await response.text();
+				console.log('Server response: ', text);
+				if (userType === 'Artist') {
+					window.location.href = 'upload.html';
+				} else if (userType === 'Listener') {
+					window.location.href = 'player.html';
+				}
+
+				username = null;
+				userType = null;
+			} catch (error) {
+			}
 		} catch (error) {
 			window.alert('Error: ' + error.message);
 			console.log('Error: ' + error.message);
@@ -124,6 +171,7 @@ if (currentPage === 'artist') {
 if (currentPage === 'upload') {
 	const uploadComponent = new UploadComponent(currentPage);
 	document.getElementById('upload-component').appendChild(uploadComponent.render());
+	console.log(userAddress);
 
 	const selectSongButton = document.getElementById('select-song-button');
 	const selectImageButton = document.getElementById('select-image-button');
