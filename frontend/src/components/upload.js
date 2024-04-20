@@ -20,6 +20,10 @@ export default class UploadComponent {
 					<label for="genre">Genre:</label>
 					<input type="text" id="genre" name="genre">
 				</div>
+				<div class="input-field">
+					<label for="price">Price:</label>
+					<input type="text" id="price" name="price">
+				</div>
 			</div>
 			<div class=upload-buttons data-page="${page}">
 				<div class="button" id="select-song-button" data-page="${page}">
