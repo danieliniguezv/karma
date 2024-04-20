@@ -6,9 +6,9 @@ export default class LogInComponent {
 		if (page === 'sign-up') {
 			this.container.innerHTML = `
 			<div class="log-in" data-page="${page}">
-				<img src="../src/images/new-logo-website-1.svg" id="logo-log-in">
+				<img src="../src/images/new-logo-website-3-matt.svg" id="logo-log-in">
 				<div class="welcome" id="welcome-text">
-					<p>Welcome to Karma</p>
+					<p>Sign Up to Karma!</p>
 				</div>
 				<div class="input-field">
 					<form>
@@ -42,7 +42,7 @@ export default class LogInComponent {
 		} else if (page === 'log-in') {
 			this.container.innerHTML = `
 				<div class="log-in" data-page="${page}">
-					<img src="../src/images/new-logo-website-1.svg" id="logo-log-in">
+					<img src="../src/images/new-logo-website-3-matt.svg" id="logo-log-in">
 					<div class="welcome" id="welcome-text">
 						<p>Welcome to Karma</p>
 					</div>
