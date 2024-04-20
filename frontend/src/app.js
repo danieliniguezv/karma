@@ -1,18 +1,22 @@
 import { LoginWindowText } from './components/text.js';
-import { Connect } from './services/walletInteractions.js';
+import { Connect } from './services/wallet-interactions.js';
 import { TextElement } from './components/dashboard.js';
 import LogInComponent from './components/login.js';
 import UploadComponent from './components/upload.js';
+import PlayerComponent from './components/player.js';
+import { songs } from './contracts/songs.js';
+import { UploadSong, GetPermit } from './services/contract-interactions.js';
 
 const currentPage = document.body.getAttribute('data-page');
 
 let userAddress = null;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 	userAddress = localStorage.getItem('userAddress');
 	if (userAddress) {
-		Connect();
+		await Connect();
 	}
+	console.log(userAddress);
 });
 
 window.ethereum.on('accountsChanged', (accounts) => {
@@ -20,9 +24,8 @@ window.ethereum.on('accountsChanged', (accounts) => {
 		localStorage.removeItem('userAddress');
 		window.location.reload();
 	}
-	if (userAddress) {
-		window.location.reload();
-	}
+	// localStorage.setItem('userAddress', accounts[0]);
+	// window.location.reload();
 });
 
 /* Log In component for Log In and Sign Up page */
@@ -37,9 +40,10 @@ if (currentPage === 'log-in') {
 
 	connectButton.addEventListener('click', async () => {
 		try {
-			const address = await Connect();
-			console.log(address);
-			fetch('/check-address?address=' + encodeURIComponent(address))
+			const signer  = await Connect();
+			//localStorage.setItem('userAddress', signer.address);
+			console.log(signer.address);
+			fetch('/check-address?address=' + encodeURIComponent(signer.address))
 				.then(response => { 
 					return response.text()
 				})
@@ -49,6 +53,7 @@ if (currentPage === 'log-in') {
 						window.location.href = 'player.html';
 					} else {
 						window.alert('Please sign up and create an account!');
+						window.location.href = 'signup.html';
 					}
 				});
 		} catch (error) {
@@ -60,6 +65,7 @@ if (currentPage === 'log-in') {
 /* Sign Up Page */
 if (currentPage === 'sign-up') {
 	const artistRadioButton = document.getElementById('artist-radio-button');
+	const listenerRadioButton = document.getElementById('listener-radio-button');
 	const signUpButton = document.getElementById('metamask-button');
 
 	let username = null;
@@ -71,17 +77,17 @@ if (currentPage === 'sign-up') {
 			if (!username) {
 				throw new Error('Please choose and input a username!');
 			}
-			const address = await Connect();
-			localStorage.setItem('userAddress', address);
+			const signer = await Connect();
+			localStorage.setItem('userAddress', signer.address);
 			
-			if (artistRadioButton.value == 'on') {
+			if (artistRadioButton.checked) {
 				userType = 'Artist';
-			} else if (artistRadioButton.value == 'off') {
+			} else {
 				userType = 'Listener';
 			}
 
 			const formData = new FormData();
-			formData.append('address', address);
+			formData.append('address', signer.address);
 			formData.append('username', username);
 			formData.append('userType', userType);
 
@@ -106,6 +112,7 @@ if (currentPage === 'sign-up') {
 				username = null;
 				userType = null;
 			} catch (error) {
+				console.error('Error: ', error);
 			}
 		} catch (error) {
 			window.alert('Error: ' + error.message);
@@ -214,20 +221,27 @@ if (currentPage === 'upload') {
 
 	uploadButton.addEventListener('click', async (event) => {
 		event.preventDefault();
+		let response = null;
+		let formData = null;
+
+		const signer = await Connect();
 
 		const artist = document.getElementById('artist-name').value;
 		const song = document.getElementById('song-name').value;
 		const genre = document.getElementById('genre').value;
+		const price = document.getElementById('price').value;
+		console.log(signer.address);
 
-		const formData = new FormData();
+		formData = new FormData();
 		formData.append('songFile', songFile);
 		formData.append('imageFile', imageFile);
 		formData.append('artist', artist);
 		formData.append('songName', song);
 		formData.append('genre', genre);
+		formData.append('userAddress', signer.address);
 
 		try {
-			const response = await fetch('/upload', {
+			response = await fetch('/upload', {
 				method: 'POST',
 				body: formData
 			});
@@ -235,18 +249,65 @@ if (currentPage === 'upload') {
 			if (!response.ok) {
 				throw new Error('Upload failed. Server returned: ' + response.status);
 			}
+
+			const data = await response.json();
+			const acousticFingerprintHash = data.acousticFingerprint;
+			console.log('Acoustic Fingerprint: ', acousticFingerprintHash);
 			
-			const text = await response.text();
-			console.log('Server response: ', text);
 			console.log('Files uploaded successfully!');
 
 			songFile = null;
 			imageFile = null;
 			uploadButton.classList.add('disabled');
+
+			try {
+				const txUploadHash = await UploadSong(signer, acousticFingerprintHash, price);
+				console.log(`Upload successful! tx hash: ${txUploadHash}`);
+				response = null;
+			} catch (error) {
+				console.error('Error: ', error);
+			}
+			try {
+				const permit = await GetPermit(signer, userAddress, acousticFingerprintHash);
+				console.log(permit);
+
+				const requestBody = JSON.stringify({ permit });
+
+				response = await fetch(`/permit/${userAddress}/permit`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: requestBody
+				});
+
+				if (!response.ok) {
+					throw new Error('Error inserting permit: ' + response.status);
+				}
+				console.log('Permit set.');
+			} catch (error) {
+				console.error('Error: ', error);
+			}
 		} catch (error) {
 			console.error('Error: ', error);
 		}
 	});
+}
+
+/* Player Page */
+if (currentPage === 'player' ) {
+	userAddress = localStorage.getItem('userAddress');
+	const songs = [];
+	
+	await fetch(`/get-songs/${userAddress}`)
+		.then(response => response.json())
+		.then(data => {
+			songs.push(...data);
+			localStorage.setItem('songs', JSON.stringify(songs));
+		})
+		.catch(error => {
+			console.error('Error fetching songs data: ' + error);
+		});
 }
 
 /* Dashboard */
