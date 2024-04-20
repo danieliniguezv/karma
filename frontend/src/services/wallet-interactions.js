@@ -9,23 +9,15 @@ export async function Connect() {
 		console.log('Metamask is not installed. Using read-only defaults.');
 		provider = ethers.getDefaultProvider();
 	} else {
+		provider = null;
 		provider = new ethers.BrowserProvider(window.ethereum);
 
 		signer = await provider.getSigner();
-		localStorage.setItem('userAddress', signer);
+		localStorage.setItem('userAddress', signer.address);
 
 		connected = window.ethereum.isConnected();
 
-		return signer.address;
+		return signer;
 	}
 }
 
-ethereum.on('accountsChanged', (accounts) => {
-	if (accounts.length === 0) {
-		localStorage.removeItem('userAddress');
-		window.location.reload();
-	}
-	if (signer) {
-		window.location.reload();
-	}
-});
