@@ -62,8 +62,10 @@ const upload = multer({ storage });
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extend: true }));
 
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Serve the HTML file and static assets
-app.use('/', express.static('../frontend/public'));
+app.use('/', express.static(path.join(__dirname, '../frontend/public')));
 app.use('/styles', express.static(path.join(__dirname, '/frontend/src/styles'), {
   setHeaders: (res, filePath) => {
     if (path.extname(filePath).toLowerCase() === '.css') {
@@ -150,16 +152,16 @@ app.post('/upload', upload.fields([
   {name: 'imageFile', maxCount: 1}
 ]), async (req, res) => {
   try {
-    const  { artist, songName, genre } = req.body;
+    const  { artist, songName, genre, userAddress } = req.body;
 
     const songFilePath = req.files['songFile'][0].path;
     const imageFilePath = req.files['imageFile'][0].path;
 
     const acousticFingerprint = await getFingerprint(songFilePath);
 
-    const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre, song_file_path, image_file_path) VALUES (?, ?, ?, ?, ?, ?)`;
+    const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre, song_file_path, image_file_path, owner) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
-    const values = [acousticFingerprint, artist, songName, genre, songFilePath, imageFilePath];
+    const values = [acousticFingerprint, artist, songName, genre, songFilePath, imageFilePath, userAddress];
 
     connection.query(insertQuery, values, (error, results) => {
       if (error) {
@@ -170,7 +172,8 @@ app.post('/upload', upload.fields([
       console.log('Song inserted successfully');
       console.log(songFilePath);
       console.log(imageFilePath);
-      res.sendStatus(200);
+      // res.sendStatus(200);
+      res.json({ acousticFingerprint });
     });
   } catch (error) {
     console.error('Error: ', error);
@@ -199,4 +202,49 @@ app.post('/sign-up', upload.none(), (req, res) => {
 
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
+});
+
+app.post('/permit/:userAddress/permit', upload.none(), (req, res) => {
+  try {
+    const userAddress = req.params.userAddress;
+    const { permit } = req.body;
+    console.log(permit);
+    console.log(userAddress);
+    const updateQuery = 'UPDATE songs SET permit = ? WHERE owner = ?';
+
+    connection.query(updateQuery, [permit, userAddress], (error, results) => {
+      if (error) {
+        console.error('Error updating users table.');
+        res.sendStatus(500);
+        return;
+      }
+      console.log('Songs table updated successfully!');
+      res.sendStatus(200);
+    });
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+});
+
+app.get('/get-songs/:userAddress', (req, res) => {
+  const userAddress = req.params.userAddress;
+
+  const query = 'SELECT song_name, artist_name, song_file_path, image_file_path FROM songs WHERE owner = ?';
+
+  connection.query(query, [userAddress], (error, results) => {
+    if (error) {
+      console.error('Error querying the database: ' + error);
+      res.sendStatus(500);
+      return;
+    } else {
+      const songs = results.map(row => ({
+        title: row.song_name,
+        artist: row.artist_name,
+        audioFile: row.song_file_path,
+        albumArt: row.image_file_path
+      }));
+
+      res.json(songs);
+    }
+  });
 });
