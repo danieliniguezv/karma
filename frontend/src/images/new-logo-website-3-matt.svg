@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="180"
+   height="180"
+   viewBox="0 0 47.624999 47.625"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   sodipodi:docname="new-logo-website-3-matt.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="false"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="2.0890342"
+     inkscape:cx="103.39706"
+     inkscape:cy="110.57741"
+     inkscape:window-width="1312"
+     inkscape:window-height="833"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#fdffff;fill-opacity:1;stroke:#0f2c50;stroke-width:1.87179;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="path18"
+       cx="23.8125"
+       cy="23.8125"
+       r="22.876604" />
+    <g
+       id="g1"
+       transform="matrix(0.87813539,0,0,-0.87813539,2.9018957,44.723096)">
+      <path
+         style="fill:#fdffff;fill-opacity:1;stroke:#0f2c50;stroke-width:1.87179;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="M 18.488111,26.409889 C 23.812512,21.561286 35.348226,8.0539936 35.348226,8.0539936 H 12.276798 V 21.561286 Z"
+         id="path16" />
+      <path
+         style="fill:#0f2c50;fill-opacity:1;stroke:#0f2c50;stroke-width:1.87179;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="M 18.488111,26.409889 35.348226,39.571003 H 12.276798 V 21.561286 Z"
+         id="path17" />
+    </g>
+    <circle
+       style="fill:#fdffff;stroke:#0f2c50;stroke-width:1.5875;stroke-linejoin:round;stroke-dasharray:6.35, 1.5875;stroke-opacity:1"
+       id="path1"
+       cx="29.763554"
+       cy="20.77116"
+       r="3.0396821" />
+  </g>
+</svg>
