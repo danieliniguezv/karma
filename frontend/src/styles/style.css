@@ -132,7 +132,6 @@ body[data-page="log-in"] {
 /* Upload Page */
 body[data-page="upload"] {
 	font-family: "Changa", sans-serif;
-	color: #0f2c50;
 }
 
 .upload[data-page="upload"] {
@@ -176,6 +175,7 @@ body[data-page="upload"] {
 /* Player Page */
 body[data-page="player"] {
 	font-family: "Changa", sans-serif;
+	color: #fdffff;
 }
 
 .logo {
@@ -242,7 +242,7 @@ main {
 }
 
 #playlist li:hover {
-	color: #0f2c50;
+	color: #fdffff;
 }
 
 #audio-player {
