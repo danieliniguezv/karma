@@ -1,28 +1,10 @@
 export const songs = [
 	{
-		"inputs": [],
-		"name": "audioFingerprintHash",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "string",
 				"name": "_audioFingerprintHash",
 				"type": "string"
-			},
-			{
-				"internalType": "address payable",
-				"name": "_to",
-				"type": "address"
 			}
 		],
 		"name": "buySong",
@@ -55,7 +37,13 @@ export const songs = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
 		"name": "price",
 		"outputs": [
 			{
@@ -70,14 +58,14 @@ export const songs = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_price",
-				"type": "uint256"
-			},
-			{
 				"internalType": "string",
 				"name": "_audioFingerprintHash",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
 			}
 		],
 		"name": "setPrice",
