@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "start": "node ./backend/server.js",
+    "start": "node backend/server.js",
     "dev": "npm run build && npm run start"
   },
   "webpack": {
