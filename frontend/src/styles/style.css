@@ -4,6 +4,57 @@ body {
 	color: #0f2c50;
 }
 
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+#header-logo {
+	height: 40px;
+	width: auto;
+	margin-right: 10px;
+}
+
+.logo img {
+	width: 36px;
+	height: 36px;
+}
+
+.menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+.menu li {
+	/*display: inline-block;
+	float: right;*/
+	color: #0f2c50;
+	margin-left: 10px;
+	margin-right: 25px;
+}
+
+.menu li a {
+	display: block;
+	padding: 8px 16px;
+	text-decoration: none;
+	color: #fdffff;
+}
+
+
 /* Signup page */
 body[data-page="sign-up"] {
 	font-family: "Changa", sans-serif;
@@ -154,10 +205,11 @@ body[data-page="upload"] {
 }
 
 .upload-buttons[data-page="upload"] {
-	width: 30%;
+	min-width: 252px;
+	max-width: 252px;
 	height: 18%;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	/*border: 3px solid pink;*/
 }
@@ -175,34 +227,6 @@ body[data-page="upload"] {
 /* Player Page */
 body[data-page="player"] {
 	font-family: "Changa", sans-serif;
-	color: #fdffff;
-}
-
-.logo {
-	position: absolute;
-	padding: 9px;
-}
-
-.logo img {
-	width: 36px;
-	height: 36px;
-}
-
-.menu {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	text-align: right;
-}
-
-.menu li {
-	display: inline-block;
-}
-
-.menu li a {
-	display: block;
-	padding: 8px 16px;
-	text-decoration: none;
 	color: #fdffff;
 }
 
@@ -334,14 +358,37 @@ body[data-page="browse"] {
 	color: #fdffff;
 }
 
+#info-bar {
+	justify-content: space-between;
+}
+
 .song-info {
 	display: flex;
 	list-style-type: none;
 	justify-content: space-around;
+	align-items: center;
+	text-align: center;
 }
 
 .song-info li {
 	display: inline-block;
+	text-align: center;
+}
+
+.song-info-container ul li img {
+	min-width: 200px;
+	max-width: 200px;
+	height: 200px;
+	border: 1px solid #fdffff;
+	/*border-radius: 50%;*/
+	margin-bottom: 10px;
+}
+
+.button[data-page="browse"] {
+	min-width: 90px;
+	max-width: 90px;
+	color: #0f2c50;
+	align-items: center;
 }
 
 /* Dashboard Page */
