@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap" rel="stylesheet">
+    <script type="module" src="/src/main.js" defer></script>
+    <title>Karma | Player </title>
+</head>
+<body data-page="player">
+    <header>
+        <div class="logo">
+		    <img src="../src/images/new-logo-website-3-matt.svg" id="header-logo">
+	    </div>
+	    <nav>
+            <ul class="menu">
+                <li><a href="./browse.html">Browse</a></li>
+                <li><a href="./upload.html">Artist</a></li>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+            </ul>
+    	</nav>
+    </header>
+    <main>
+        <div id="player">
+            <img id="album-art" src="#" alt="Album Art">
+            <div id="song-info">
+                <h2 id="song-title"></h2>
+                <p id="artist"></p>
+            </div>
+            <audio id="audio-player" controls>
+                <source src="#" type="audio/mpeg">
+            </audio>
+            <input id="progress-bar" type="range" value="0" min="0" max="100" step="1">
+            <div class="volume-container">
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+            </div>
+            <div class="control-buttons">
+                <button id="previous-button" class="control-button"><i class="fas fa-backward"></i></button>
+                <button id="play-pause-button" class="control-button"><i class="fas fa-play"></i></button>
+                <button id="next-button" class="control-button"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+        <div id="playlist">
+            <!-- List of songs will be dynamically generated here -->
+        </div>
+    </main>
+    <script>
+        function loadPlayerScript() {
+          var playerScript = document.createElement('script');
+          playerScript.src = '../src/pages/player.js';
+          playerScript.defer = true;
+          document.body.appendChild(playerScript);
+        }
+    
+        // Check if main.js has finished executing
+        if (document.readyState === 'complete') {
+          loadPlayerScript();
+        } else {
+          // Wait for the DOMContentLoaded event before loading player.js
+          document.addEventListener('DOMContentLoaded', loadPlayerScript);
+        }
+      </script>
+    <!-- <script src="../src/pages/player.js" defer></script> -->
+</body>
+</html>

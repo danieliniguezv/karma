@@ -1,0 +1,475 @@
+body {
+	margin: 0;
+	background-color: #0f2c50;
+	color: #0f2c50;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+#header-logo {
+	height: 40px;
+	width: auto;
+	margin-right: 10px;
+}
+
+.logo img {
+	width: 36px;
+	height: 36px;
+}
+
+.menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+.menu li {
+	/*display: inline-block;
+	float: right;*/
+	color: #0f2c50;
+	margin-left: 10px;
+	margin-right: 25px;
+}
+
+.menu li a {
+	display: block;
+	padding: 8px 16px;
+	text-decoration: none;
+	color: #fdffff;
+}
+
+
+/* Signup page */
+body[data-page="sign-up"] {
+	font-family: "Changa", sans-serif;
+}
+
+#log-in-component {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.log-in {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	min-width: 288px;
+	max-width: 333px;
+	min-height: 540px;
+	max-height: 540px;
+	background-color: #fdffff;
+	font-size: clamp(21px, 2.7vw, 21px);
+	font-weight: 450;
+}
+
+.input-field input {
+	appearance: none;
+	-webkit-appearance: none;
+	border: 3px solid #0f2c50;
+	width: 180px;
+	height: 25px;
+}
+
+.input-field input::placeholder {
+	font-family: "Changa", sans-serif;
+}
+
+.input-field input[type="text"] {
+	font-family: "Changa", sans-serif;
+}
+
+.user-selector {
+	display: flex;
+	justify-content: center;
+}
+
+.user-selector input {
+	cursor: pointer;
+}
+
+.user-selector input[type="radio"] {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: #fdffff;
+	border: 3px solid #0f2c50;
+}
+
+.user-selector input[type="radio"]:checked {
+	background-color: #0f2c50;
+}
+
+.user-selector label {
+	font-size: clamp(15px, 2.7vw, 15px);
+}
+.artist-selector {
+	min-width: 150px;
+	max-width: 150px;
+	text-align: center;
+}
+
+.listener-selector {
+	min-width: 150px;
+	max-width: 150px;
+	text-align: center;
+}
+
+#sign-up {
+	height: 36px;
+	font-weight: 540;
+	font-size: clamp(16px, 2.7vw, 16px);
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+	min-width: 198px;
+	max-width: 198px;
+	min-height: 42px;
+	max-height: 42px;
+	background-color: #fdffff;
+	border-style: solid;
+	border-color: #0f2c50;
+	cursor: pointer;
+}
+
+#logo-log-in {
+	width: 108px;
+	height: 108px;
+}
+
+#metamask-logo {
+	min-width: 126px;
+	max-width: 126px;
+	min-height: 42px; 
+	max-height: 42px;
+}
+
+/* Login */
+body[data-page="log-in"] {
+	font-family: "Changa", sans-serif;
+}
+
+#sign-up[data-page="log-in"] {
+	height: 18px;
+}
+
+#sign-up-no-account a {
+	color: #0f2c50;
+	font-size: clamp(18px, 2.7vw, 18px);
+}
+
+/* Upload Page */
+body[data-page="upload"] {
+	font-family: "Changa", sans-serif;
+}
+
+.upload[data-page="upload"] {
+	height: 75vh;
+}
+
+.input-fields[data-page="upload"] {
+	justify-content: space-evenly;
+}
+
+.log-in[data-page="upload"] {
+	z-index: -1;
+	position: absolute;
+}
+
+#logo-log-in[data-page="upload"] {
+	width: 207px;
+	height: 207px;
+	opacity: 0.2;
+}
+
+.upload-buttons[data-page="upload"] {
+	min-width: 252px;
+	max-width: 252px;
+	height: 18%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
+
+.button[data-page="upload"] {
+	min-width: 108px;
+	max-width: 108px;
+}
+
+#upload-button {
+	display: flex;
+	align-items: center;
+}
+
+/* Player Page */
+body[data-page="player"] {
+	font-family: "Changa", sans-serif;
+	color: #fdffff;
+}
+
+main {
+	margin-top: 144px;
+}
+
+#player {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+#album-art {
+	min-width: 200px;
+	max-width: 200px;
+	height: 200px;
+	border: 1px solid #fdffff;
+	border-radius: 50%;
+	margin-bottom: 10px;
+}
+
+#song-info {
+	text-align: center;
+}
+
+#playlist {
+	text-align: center;
+	cursor: pointer;
+}
+
+#playlist li {
+	list-style-type: none;
+	margin-bottom: 10px;
+}
+
+#playlist li:hover {
+	color: #fdffff;
+}
+
+#audio-player {
+	display: none;
+}
+
+#progress-bar {
+	appearance: none;
+	-webkit-appearance: none;
+	border-radius: 9px;
+	background: transparent;
+	background-color: #fdffff;
+	width: 50%;
+	accent-color: #0f2c50;
+	cursor: pointer;
+}
+
+#progress-bar::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#progress-bar::-moz-range-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#volume-slider {
+	appearance: none;
+	-webkit-appearance: none;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	margin-top: 18px;
+	background-color: #fdffff;
+	border-radius: 9px;
+}
+
+#volume-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+	-webkit-appearance: none;
+	width: 9px;
+	height: 9px;
+	background-color: #0f2c50;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.control-buttons {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 10px;
+}
+
+.control-button {
+	border: none;
+	border-radius: 50%;
+	background-color: transparent;
+	width: 63px;
+	height: 63px;
+	cursor: pointer;
+}
+
+.control-button i {
+	font-size: 27px;
+	color: #fdffff;
+}
+
+/* Browse Page */
+body[data-page="browse"] {
+	font-family: "Changa", sans-serif;
+	color: #fdffff;
+}
+
+#info-bar {
+	justify-content: space-between;
+}
+
+.song-info {
+	display: flex;
+	list-style-type: none;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+}
+
+.song-info li {
+	display: inline-block;
+	text-align: center;
+}
+
+.song-info-container ul li img {
+	min-width: 200px;
+	max-width: 200px;
+	height: 200px;
+	border: 1px solid #fdffff;
+	/*border-radius: 50%;*/
+	margin-bottom: 10px;
+}
+
+.button[data-page="browse"] {
+	min-width: 90px;
+	max-width: 90px;
+	color: #0f2c50;
+	align-items: center;
+}
+
+/* Dashboard Page */
+body[data-page="dashboard"] {
+	font-family: "Changa", sans-serif;
+	color: #fdffff;
+}
+
+/* Artist Page */
+body[data-page="artist"] {
+	font-family: "Changa", sans, serif;
+	color: #fdffff;
+}
+
+.log-in[data-page="artist"] {
+	z-index: -1;
+	position: absolute;
+	min-height: 350px;
+	max-height: 350px;
+}
+
+#logo-log-in[data-page="artist"] {
+	width: 207px;
+	height: 207px;
+	opacity: 0.2;
+}
+
+.upload {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50vh;
+	color: #0f2c50;
+	/*border: 3px solid pink;*/
+}
+
+.upload input[type="file"] {
+	display: none;
+}
+
+.input-fields {
+	width: 50%;
+	height: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
+
+.input-fields label {
+	display: block;
+}
+
+.upload-buttons[data-page="artist"] {
+	width: 18%;
+	height: 18%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
+
+.button[data-page="artist"] {
+	min-width: 108px;
+	max-width: 108px;
+}
+
+#select-song-button {
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
+
+#select-image-button {
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*border: 3px solid pink;*/
+}
