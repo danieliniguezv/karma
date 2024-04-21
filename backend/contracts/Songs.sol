@@ -3,32 +3,30 @@
 pragma solidity ^0.8.25;
 
 contract Songs {
-	string public audioFingerprintHash;
-	uint256 public price;
-
 	mapping(string => address) public songOwner;
+	mapping(string => uint256) public price;
 	mapping(address => mapping(string => bool)) public permit;
 
 	function uploadSong(string memory _audioFingerprintHash, uint256 _price) public {
 		bool _permit = false;
-		price = _price;
-		audioFingerprintHash = _audioFingerprintHash;
+		price[_audioFingerprintHash] = _price;
 		songOwner[_audioFingerprintHash] = msg.sender;
 		_setPermit(_audioFingerprintHash, _permit);
 	}
 
-	function buySong(string memory _audioFingerprintHash, address payable _to) public payable {
-		if (msg.value == price) {
+	function buySong(string memory _audioFingerprintHash) public payable {
+		address payable _to = payable(songOwner[_audioFingerprintHash]);
+		if (msg.value == price[_audioFingerprintHash]) {
 			_setPermit(_audioFingerprintHash, true);
 			(bool _sent, bytes memory _data) = _to.call{value: msg.value}("");
 		} else {
-			revert("Not enough moiney!");
+			revert("Not enough money!");
 		}
 	}
 
-	function setPrice(uint256 _price, string memory _audioFingerprintHash) public {
+	function setPrice(string memory _audioFingerprintHash, uint256 _price) public {
 		if (songOwner[_audioFingerprintHash] == msg.sender) {
-			price = _price;
+			price[_audioFingerprintHash] = _price;
 		} else {
 			revert("No can do!");
 		}
