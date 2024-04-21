@@ -115,3 +115,71 @@ a `keccak256` hashing function that it is then stored in the smart contract.
 
 This acoustic fingerprint is the foundational layer of this economy. It is a 
 unique way to identify an invisible asset such as music.
+
+## Technology
+
+The technology used in this project:
+
+- Solidity
+- Foundry
+- EthersJS
+- JavaScript
+- Node JS
+- Express
+- HTML5
+- CSS3
+- SQL
+- MySQL
+
+## Prerequisites
+
+For this dapp to work, although most of the needed dependencies and software 
+will be installed when starting the project as mentioned ahead. You will need 
+to create and install a database. For this particular project SQL and MySQL 
+are being utilized and here is a great [video](https://youtu.be/HXV3zeQKqGY?si=IZb88uvfayRL2Y9_) that will guide you 
+perfectly on how to install an run a MySQL instance server on your machine.
+
+## How to Install
+
+Clone this repository and `cd` into the project’s directory. Once on the root 
+of the project’s directory run:
+
+```sh
+karma ~ npm install
+```
+
+You will need to create two environmental variables. One on the root of 
+the `backend` directory:
+
+```sh
+karma/backend ~ vim .env
+```
+
+inside create the password for your database as such:
+
+```sh
+DB_PASSWORD='your_password'
+```
+
+Before creating the environment variable for the frontend, head over to [Remix](https://remix.ethereum.org/#lang=en&optimize=false) (for 
+the ease of it) or your preferred method to deploy your contract. You can also 
+use [foundry](https://book.getfoundry.sh/tutorials/solidity-scripting#deploying-our-contract) and deploy and verify the contract.
+
+Now head over to the root of `frontend` directory:
+
+```sh
+karma/frontend ~ vim .env
+```
+
+inside input the address for your deployed smart contract
+
+```sh
+SONGS_SMART_CONTRACT_ADDRESS='0x...'
+```
+
+Finally run and build the project standing on the root level of the project’s 
+directory and head over on your browser to `[localhost:3000/login.html](http://localhost:3000/login.html)` . Run:
+
+```sh
+karma ~ npm run dev
+```
