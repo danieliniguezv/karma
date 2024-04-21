@@ -5,6 +5,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 require('dotenv').config({ path: './backend/.env' });
+//require('dotenv').config();
 const getFingerprint = require('./scripts/acoustic-fingerprint.js');
 
 /* Create a MySQL connection */
@@ -66,15 +67,15 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Serve the HTML file and static assets
 app.use('/', express.static(path.join(__dirname, '../frontend/public')));
-app.use('/styles', express.static(path.join(__dirname, '/frontend/src/styles'), {
+app.use('/styles', express.static(path.join(__dirname, '../frontend/src/styles'), {
   setHeaders: (res, filePath) => {
     if (path.extname(filePath).toLowerCase() === '.css') {
       res.setHeader('Content-Type', 'text/css');
     }
   },
 }));
-app.use('/src', express.static('../frontend/src/'));
-app.use('/images', express.static('../frontend/src/images'));
+app.use('/src', express.static(path.join(__dirname, '../frontend/src')));
+app.use('/images', express.static(path.join(__dirname, '../frontend/src/images')));
 
 /* Endpoint query existing users' addresses */
 app.get('/login', (req, res) => {
