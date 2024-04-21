@@ -13,27 +13,30 @@
 		<title>Karma</title>
 	</head>
 	<body data-page="dashboard">
-		<div class="logo">
-			<img src="../src/images/new-logo-website-1.svg" id="header-logo">
-		</div>
-		<nav>
-			<ul class="menu">
-				<li><a href="#">Browse</a></li>
-				<li><a href="#">Artist</a></li>
-			</ul>
-		</nav>
-		<div class="song-info-container">
-			<ul class="song-info">
-				<li id="art"></li>
-				<li id="artist-name">Artist</li>
-				<li id="song-name">Song Name</li>
-				<li id="duration">Duration</li>
-				<li id="play-button"></li>
-			</ul>
-		</div>
-		<div id="playlist">
-			<!-- List of songs will be dynamically generated here -->
-		</div>
+		<header>
+			<div class="logo">
+				<img src="../src/images/new-logo-website-3-matt.svg" id="header-logo">
+			</div>
+			<nav>
+				<ul class="menu">
+					<li><a href="./player.html">Play</a></li>
+					<li><a href="./browse.html">Browse</a></li>
+					<li><a href="./upload.html">Artist</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div class="song-info-container" id="info-bar">
+				<ul class="song-info">
+					<li id="art"></li>
+					<li id="artist-name">Artist</li>
+					<li id="song-name">Song Name</li>
+					<li id="duration">Duration</li>
+					<li id="play-button"></li>
+				</ul>
+			</div>
+			<div class="song-info-container" id="song-list-container"></div>
+		</main>
 	</body>
 </html>
 
