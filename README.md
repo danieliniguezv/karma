@@ -178,7 +178,7 @@ SONGS_SMART_CONTRACT_ADDRESS='0x...'
 ```
 
 Finally run and build the project standing on the root level of the project’s 
-directory and head over on your browser to `[localhost:3000/login.html](http://localhost:3000/login.html)` . Run:
+directory and head over on your browser to `localhost:3000/login.html` . Run:
 
 ```sh
 karma ~ npm run dev
