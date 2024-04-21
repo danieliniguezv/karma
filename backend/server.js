@@ -152,16 +152,16 @@ app.post('/upload', upload.fields([
   {name: 'imageFile', maxCount: 1}
 ]), async (req, res) => {
   try {
-    const  { artist, songName, genre, userAddress } = req.body;
+    const  { artist, songName, genre, price, userAddress } = req.body;
 
     const songFilePath = req.files['songFile'][0].path;
     const imageFilePath = req.files['imageFile'][0].path;
 
     const acousticFingerprint = await getFingerprint(songFilePath);
 
-    const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre, song_file_path, image_file_path, owner) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const insertQuery = `INSERT INTO songs (acoustic_fingerprint, artist_name, song_name, genre, song_file_path, image_file_path, price, owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    const values = [acousticFingerprint, artist, songName, genre, songFilePath, imageFilePath, userAddress];
+    const values = [acousticFingerprint, artist, songName, genre, songFilePath, imageFilePath, price, userAddress];
 
     connection.query(insertQuery, values, (error, results) => {
       if (error) {
@@ -200,25 +200,23 @@ app.post('/sign-up', upload.none(), (req, res) => {
   }
 });
 
-app.listen(port, () => {
-	console.log(`Server started on port ${port}`);
-});
-
-app.post('/permit/:userAddress/permit', upload.none(), (req, res) => {
+app.post('/permit/:userAddress/acousticFingerprintHash/permit', upload.none(), (req, res) => {
   try {
     const userAddress = req.params.userAddress;
-    const { permit } = req.body;
+    const { acousticFingerprintHash, permit } = req.body;
     console.log(permit);
     console.log(userAddress);
-    const updateQuery = 'UPDATE songs SET permit = ? WHERE owner = ?';
+    console.log(acousticFingerprintHash);
+    // const updateQuery = 'UPDATE songs SET permit = ? WHERE owner = ?';
+    const query = `INSERT INTO permits (user_address, song, permit) VALUES (?, ?, ?)`;
 
-    connection.query(updateQuery, [permit, userAddress], (error, results) => {
+    connection.query(query, [userAddress, acousticFingerprintHash, permit], (error, results) => {
       if (error) {
-        console.error('Error updating users table.');
+        console.error('Error inserting into permits table.');
         res.sendStatus(500);
         return;
       }
-      console.log('Songs table updated successfully!');
+      console.log('Permits table updated successfully!');
       res.sendStatus(200);
     });
   } catch (error) {
@@ -247,4 +245,62 @@ app.get('/get-songs/:userAddress', (req, res) => {
       res.json(songs);
     }
   });
+});
+
+app.get('/get-songs', (req, res) => {
+  const userAddress = req.params.userAddress;
+
+  const query = 'SELECT * FROM songs';
+
+  connection.query(query, [userAddress], (error, results) => {
+    if (error) {
+      console.error('Error querying the database: ' + error);
+      res.sendStatus(500);
+      return;
+    } else {
+      const songs = results.map(row => ({
+        acousticFingerprintHash: row.acoustic_fingerprint,
+        title: row.song_name,
+        artist: row.artist_name,
+        audioFile: row.song_file_path,
+        albumArt: row.image_file_path,
+        price: row.price
+      }));
+
+      res.json(songs);
+    }
+  });
+});
+
+app.get('/permits/:userAddress', (req, res) => {
+  const userAddress = req.params.userAddress;
+
+  // Query to retrieve song information for a user's permits
+  const query = `
+    SELECT s.song_name, s.artist_name, s.song_file_path, s.image_file_path
+    FROM permits p
+    JOIN songs s ON p.song = s.acoustic_fingerprint
+    WHERE p.user_address = ?`;
+
+  // Execute the query with the userAddress parameter
+  connection.query(query, [userAddress], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    } else {
+      const songs = results.map(row => ({
+        title: row.song_name,
+        artist: row.artist_name,
+        audioFile: row.song_file_path,
+        albumArt: row.image_file_path
+      }));
+
+    res.json(results);
+    }
+  });
+});
+
+app.listen(port, () => {
+	console.log(`Server started on port ${port}`);
 });
