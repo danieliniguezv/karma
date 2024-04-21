@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "start": "dotenv -e ./backend/.env node ./backend/server.js",
+    "start": "node ./backend/server.js",
     "dev": "npm run build && npm run start"
   },
   "webpack": {
