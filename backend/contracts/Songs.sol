@@ -70,7 +70,7 @@ contract Songs {
 		}
 	}
 
-	function _fee(uint256 _songPrice) public pure returns (uint256 _developerFee) {
+	function _fee(uint256 _songPrice) internal pure returns (uint256 _developerFee) {
         _developerFee = (_songPrice / 100) * 3;
         return _developerFee;
     }
