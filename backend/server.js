@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
-require('dotenv').config();
+require('dotenv').config({ path: '.backend/.env' });
 const getFingerprint = require('./scripts/acoustic-fingerprint.js');
 
 /* Create a MySQL connection */
