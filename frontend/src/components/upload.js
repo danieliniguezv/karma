@@ -5,7 +5,7 @@ export default class UploadComponent {
 		this.container.setAttribute('data-page', page);
 		this.container.innerHTML = `
 		<div class="log-in" data-page="${page}">
-			<img src="../src/images/new-logo-website-1.svg" id="logo-log-in" data-page="${page}">
+			<img src="/images/karma-matt.svg" id="logo-log-in" data-page="${page}">
 		</div>
 			<div class="input-fields" data-page="${page}">
 				<div class="input-field">
