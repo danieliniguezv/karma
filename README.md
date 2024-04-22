@@ -142,6 +142,46 @@ are being utilized and needed in order for it to work propperly. Here is a great
 [video](https://youtu.be/HXV3zeQKqGY?si=IZb88uvfayRL2Y9_) that will guide you 
 perfectly on how to install and run a MySQL instance server on your machine.
 
+**MySQL VERSION MUST BE 8.3.0 IN ORDER FOR IT TO WORK**
+
+## SQL and MySQL
+This project consists of three main tables that need to be created in order for 
+the dapp to work properly:
+
+### Users Table
+```sql
+CREATE TABLE users (
+    user_address VARCHAR(255) PRIMARY KEY,
+    username VARCHAR(255),
+    user_type VARCHAR(255)
+);
+```
+### Songs Table
+```sql
+CREATE TABLE songs (
+    acoustic_fingerprint VARCHAR(255) PRIMARY KEY,
+    artist_name VARCHAR(255),
+    song_name VARCHAR(255),
+    genre VARCHAR(255),
+    song_file_path VARCHAR(255),
+    image_file_path VARCHAR(255),
+    price VARCHAR(255),
+    owner VARCHAR(255),
+    FOREIGN KEY (owner) REFERENCES users(user_address)
+);
+```
+### Permits Table
+```sql
+CREATE TABLE permits (
+    user_address VARCHAR(255),
+    song VARCHAR(255),
+    permit BOOL,
+    FOREIGN KEY (song) REFERENCES songs(acoustic_fingerprint),
+    FOREIGN KEY (user_address) REFERENCES users(user_address)
+);
+```
+
+
 ## How to Install
 
 Clone this repository and `cd` into the project’s directory. Once on the root 
